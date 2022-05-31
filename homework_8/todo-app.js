@@ -1,4 +1,9 @@
 (function () {
+    const sessionDict = {
+        'keyMy': [],
+        'keyDad': [],
+        'keyMom': [],
+    };
     // создаем и возвращаем заголовок приложения
     function createAppTitle(title) {
         let appTitle = document.createElement('h2');
@@ -95,19 +100,22 @@
 
     function readToDict(inKey, invalue, dict) {
         /**
-        *  читаем и возвращаем нужное значение из словаря
+        *  читаем и возвращаем список значений по ключу из словаря
         * @function readToDict
     
         * @param  {String} inValue  значение для споиска нужно элемента в словаре.
         * @param  {String} inKey   ключ словаря, по которому будем определять.
         * @param  {String} dict    словарь.
-        * @return {String}         
+        * @return {String}         возвращаем спискок по ключу
         */
         for (let key in dict) {
             if (key === inKey) {
                 for (let value of dict[key]) {
                     if (value === invalue) {
-                        return value;
+                        console.log('значение =', dict[key]);
+                        return dict[key];
+                    } else {
+                        return false;
                     }
                 }
             }
@@ -122,11 +130,28 @@
         * @param  {String} inKey   ключ  по которому будем искать.
         * @param  {String} invalue    значение, которое будем искать в localstorage и сравнивать с тем , что есть в списке .
         */
-        for (let pairKeyValue of Object.entries(localStorage)) {
-            if (inkey === pairKeyValue[0]) {
-                localStorage.removeItem(pairKeyValue[0]);
+        // for (let pairKeyValue of Object.entries(localStorage)) {
+        //     if (inkey === pairKeyValue[0]) {
+        //         localStorage.removeItem(pairKeyValue[0]);
+        //     }
+        // }
+
+        let foundValueList = readToDict(inkey = inkey, invalue = invalue, dict = sessionDict);
+        console.log('словарь1 =', sessionDict);
+        console.log('считанной значени =', foundValueList);
+        if (foundValueList) {
+            let foundIndex = foundValueList.indexOf(invalue);
+            if (foundIndex === -1) {
+                console.log('Индекс не найден =', foundIndex);
+            } else {
+                console.log('Индекс найден =', foundIndex);
+                foundValueList.splice(foundIndex, 1);
+                localStorage.setItem(inkey, JSON.stringify(sessionDict[inkey]));
             }
         }
+
+
+
     }
 
     function buttonAddRemove(todoItem, inkey) {
@@ -156,11 +181,6 @@
 
     function createTodoApp(container, title = 'Список дел', inkey) {
 
-        sessionDict = {
-            'keyMy': [],
-            'keyDad': [],
-            'keyMom': [],
-        };
         let todoAppTitle = createAppTitle(title);
         let todoItemForm = createTodoItemForm();
         let todoList = createTodoList();
@@ -196,6 +216,7 @@
             }
             // заполняем словарь новыми значениями
             addValueToDict(todoItemForm.input.value, inkey, sessionDict);
+            console.log('словарь3 =', sessionDict);
             localStorage.setItem(inkey, JSON.stringify(sessionDict[inkey]));
 
             // console.log('данные словаря', localStorage.getItem([key][1]));
