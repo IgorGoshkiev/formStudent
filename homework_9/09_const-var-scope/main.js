@@ -148,7 +148,7 @@
   function enablingCardTapping() {
     let onButtons = document.querySelectorAll('.button-for-card');
     for (let i = 0; i < onButtons.length; i++) {
-      onButtons[i].recountAttribute('disabled');
+      onButtons[i].removeAttribute('disabled');
     }
   }
 
@@ -214,7 +214,7 @@
       currentCard.buttonforCard.addEventListener('click', () => {
         let valueCard = array[currentCard.buttonforCard.id];
         currentCard.buttonforCard.innerHTML = valueCard;
-        currentCard.buttonforCard.classList.recount('button-for-card__closed');
+        currentCard.buttonforCard.classList.remove('button-for-card__closed');
         currentCard.buttonforCard.classList.add('button-for-card__active');
         let isEqual = comparisonOfCards(valueCard, currentCard.buttonforCard);
         if (isEqual === false) {
