@@ -2,19 +2,34 @@
 
   // Создаем заголовок приложения
   function createAppTitle(title) {
-    let appTitle = document.createElement('h2');
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('header-wraper');
+
+    const appTitle = document.createElement('h2');
     appTitle.classList.add('header-title');
     appTitle.innerHTML = title;
-    return appTitle;
+
+    let appClock = document.createElement('button');
+    appClock.classList.add('header-clock');
+
+    wrapper.append(appTitle);
+    wrapper.append(appClock);
+
+    return {
+      appTitle,
+      appClock,
+      wrapper
+    }
   }
 
   // Создаем колонку с правилами игры
   function createTextHeader(text) {
-    let appText = document.createElement('p');
+    const appText = document.createElement('p');
     appText.classList.add('header-text');
     appText.innerText = text;
     return appText;
   }
+
 
   // создаем и возвращаем форму для для ввода кол-ва карточек, запуска и остановки игры
   function createAppForm() {
@@ -133,7 +148,7 @@
   function enablingCardTapping() {
     let onButtons = document.querySelectorAll('.button-for-card');
     for (let i = 0; i < onButtons.length; i++) {
-      onButtons[i].removeAttribute('disabled');
+      onButtons[i].recountAttribute('disabled');
     }
   }
 
@@ -199,7 +214,7 @@
       currentCard.buttonforCard.addEventListener('click', () => {
         let valueCard = array[currentCard.buttonforCard.id];
         currentCard.buttonforCard.innerHTML = valueCard;
-        currentCard.buttonforCard.classList.remove('button-for-card__closed');
+        currentCard.buttonforCard.classList.recount('button-for-card__closed');
         currentCard.buttonforCard.classList.add('button-for-card__active');
         let isEqual = comparisonOfCards(valueCard, currentCard.buttonforCard);
         if (isEqual === false) {
@@ -219,13 +234,28 @@
     sectionCards.append(ulCards);
   }
 
+  // Таймер обратного отсчета
+  function timeCountdown(clock) {
+    let degritCount = null;
+    clock = clock / 1000;
+    let firstButton = document.querySelector('button');
+    firstButton.innerHTML = clock;
+    (function count() {
+      if (clock > 0) {
+        clock--;
+        firstButton.innerHTML = clock;
+        setTimeout(count, 1000);
+      }
+    })();
+  }
+
   // Отрисовываем формы и передаём валидное число карточек и создаем их
   function drawingForm() {
     const containerTitleForm = document.querySelector('header div.container');
     const gameAppTitle = createAppTitle('Игра в пары');
     const gameAppText = createTextHeader('Игрок может нажать на любую карточку. После нажатия карточка открывается. Далее игрок может открыть вторую карточку. Если обе открытые карточки содержат одинаковую цифру, они остаются открытыми до конца игры. Если же вторая карточка содержит отличную от первой цифру, обе они закрываются. Как только игрок открыл все пары на поле, игра считается завершённой.');
 
-    containerTitleForm.append(gameAppTitle);
+    containerTitleForm.append(gameAppTitle.wrapper);
     containerTitleForm.append(gameAppText);
 
     const containerForm = document.querySelector('main div.container');
@@ -242,7 +272,6 @@
       }
       let validInputValue = checkInputValue(inputValue);
       if (!validInputValue) {
-        // console.log('Value is not valid');
         gameAppForm.input.value = '';
         gameAppForm.input.classList.add('app-form__input-error');
         gameAppForm.input.placeholder = 'Value is not valid';
@@ -251,19 +280,19 @@
         gameAppForm.buttonStartPlay.disabled = true;
         gameAppForm.buttonStartPlay.classList.add('button-disable');
         let arrayMixed = createArrayOfPairs(Math.pow(validInputValue, 2));
-        // console.log(arrayMixed);
         createBlockCards(arrayMixed);
-
         if (validInputValue > 4) {
           timerId = setTimeout(() => {
             alert('Время игры закончилось');
             window.location.reload();
           }, 90000);
+          timeCountdown(90000);
         } else {
           timerId = setTimeout(() => {
             alert('Время игры закончилось');
             window.location.reload();
           }, 50000);
+          timeCountdown(50000);
         }
       }
     });

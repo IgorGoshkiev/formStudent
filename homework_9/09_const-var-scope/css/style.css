@@ -55,17 +55,30 @@ ul {
   list-style: none;
 }
 
-.title {
+.header-title {
   margin: 0;
   font-weight: normal;
-  font-size: 48px;
-  line-height: 65px;
+  font-size: 35px;
+  line-height: 38px;
   color: var(--common-color-light-black);
 }
 
 .header {
   margin-bottom: 20px;
   margin-top: 20px;
+}
+
+.header-wraper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-clock {
+  font-size: 18px;
+  color: var(--comon-color-red);
+  border: 1px solid  var(--common-color-black);
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .main {
