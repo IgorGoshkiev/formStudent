@@ -1,0 +1,149 @@
+* {
+  box-sizing: border-box;
+}
+
+
+body {
+  margin: 0;
+  font-size: 16px;
+}
+
+:root {
+  --common-color-white: #ffffff;
+  --common-color-black: #000000;
+  --common-color-light-black: #333333;
+  --comon-color-blue: #0000FF;
+  --comon-color-red: #FF0000;
+}
+
+a {
+  text-decoration: none;
+}
+
+.input {
+  margin: 0;
+}
+
+h2, h3 {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.inputFilter {
+  margin-right: 0 !important;
+}
+
+/* input:invalid {
+  border: 2px dashed red;
+} */
+
+input:invalid:required {
+  background-image: linear-gradient(to right, pink, lightgreen);
+}
+
+input:valid {
+  border: 1px solid black;
+}
+
+.mycol {
+  border: solid 1px;
+  padding: 8px 5px;
+}
+
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.btn_col {
+  display: inline-block;
+  text-align: center;
+  padding: 25px 40px;
+  color: var(--common-color-black);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  user-select: none;
+  font-weight: bold;
+  font-size: 18px;
+
+  transition-duration: 300ms;
+}
+
+.btn {
+  transition-duration: 300ms;
+  cursor: pointer;
+}
+
+.btn:not(:last-child) {
+  margin-right: 8px;
+}
+
+.btn_col:hover {
+  color: var(--comon-color-red);
+}
+
+.btn_col:focus {
+  color: var(--comon-color-red);
+}
+
+.filter {
+  margin-bottom: 20px;
+}
+
+.table {
+  margin-bottom: 40px;
+}
+
+.formAddStudent {
+  border: solid 1px;
+  padding: 30px;
+}
+
+.legendForm {
+  margin-bottom: 30px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 10px;
+}
+
+.form-label {
+  color: var(--comon-color-blue);
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.btn-primary {
+  padding: 15px 10px;
+  margin-right: 10px;
+}
+
+.rowselect-activ {
+  background-color: var(--comon-color-red);
+  transition-duration: 300ms;
+}
+
+.rowselect:hover {
+  cursor: pointer;
+  background-color: #a39d9d;
+  color: var(--common-color-white);
+  transition-duration: 300ms;
+}
+
+.rowselect:active {
+  background-color: var(--comon-color-red);
+}
+
+.errorBirth {
+  background-image: linear-gradient(to right, pink, lightgreen);
+  color: #900;
+}
